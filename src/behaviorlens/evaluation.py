@@ -20,8 +20,11 @@ def validate(rows):
             p = float(r[field])
             if not math.isfinite(p) or not 0 <= p <= 1:
                 raise ValueError(f"Invalid {field}")
-        history, cutoff, end = map(date.fromisoformat,
-                                   (r['history_end'], r['cutoff'], r['label_end']))
+        values = (r['history_end'], r['cutoff'], r['label_end'])
+        if all(isinstance(v, int) or str(v).isdigit() for v in values):
+            history, cutoff, end = map(int, values)
+        else:
+            history, cutoff, end = map(date.fromisoformat, values)
         if not history < cutoff < end:
             raise ValueError("Require history_end < cutoff < label_end")
 

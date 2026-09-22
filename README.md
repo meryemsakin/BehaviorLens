@@ -1,29 +1,53 @@
 # BehaviorLens
 
-**Do synthetic users predict real behavior—or merely sound plausible?**
+Testing behavioral predictions against held-out retailer transaction records.
 
-An independent evaluation project for probabilistic behavioral predictions.
+## First baseline experiment
 
-## Status
+**Status: real-data baselines completed; LLM/persona experiments have not run.**
 
-Initial evaluation kernel, not a completed benchmark. No real-data results or LLM runs yet. The included CSV is handcrafted test data and must not be cited as empirical evidence.
+Task: purchase in `FLUID MILK PRODUCTS` within 28 dataset days. Category chosen using only records before day 365. Test: 6,939 observations from 2,398 recently active households.
 
-Implemented: strict probability/label validation, duplicate checks, temporal metadata checks, Brier score, clipped log loss, calibration bins, ECE, descriptive subgroup metrics, paired household bootstrap and JSON/HTML reporting with an input fingerprint.
+| Model | Brier ↓ | Average precision ↑ | Δ Brier vs prevalence | 95% household-cluster interval |
+|---|---:|---:|---:|---|
+| prevalence | 0.2432 | 0.5854 | +0.0000 | [+0.0000, +0.0000] |
+| logistic | 0.1709 | 0.8715 | -0.0724 | [-0.0781, -0.0667] |
+| gradient_boosting | 0.1701 | 0.8709 | -0.0731 | [-0.0789, -0.0674] |
 
-Planned: verified Complete Journey ingestion, train/validation/test construction, fitted baselines, LLM adapters, experiment lineage, real experiments, presentation and video.
+Historical behavioral features improve prediction over a fixed training-prevalence forecast in this task. The two fitted models have similar point estimates; their difference has not been tested. **No conclusion about persona value is available yet.**
 
-## Run without dependencies
+This is one category at one retailer, not a test of general population representativeness. The source describes a representation of transactions; demographic codes are not decoded into age or income. Intervals resample households, not shared temporal shocks.
+
+## Reproduce
+
+```sh
+uv sync --extra research --frozen
+uv run python scripts/download_journey.py
+uv run python -m behaviorlens.benchmark --output outputs/my_run
+```
+
+Use a fresh output directory for each run. Each run saves the protocol, source and code hashes, metrics, matched predictions, feature snapshots and an HTML report with calibration and a baseline failure explorer. Raw and household-level data stay local.
+
+```sh
+uv run python -m behaviorlens.prepare_llm --run outputs/my_run --output outputs/my_llm_plan
+```
+
+This prepares label-free requests for two LLM conditions from identical source features; it does not call a model. Use the exact same selected subset for baseline comparison.
+
+## Validate the kernel
 
 ```sh
 PYTHONPATH=src python3 -m unittest discover -s tests -v
 PYTHONPATH=src python3 -m behaviorlens examples/fixture.csv --evidence fixture --output outputs/fixture
 ```
 
-Input CSV: `household_id,cutoff,history_end,label_end,y,probability,baseline_probability,segment`.
-Each row represents the same outcome and horizon for model and baseline. Dates use ISO format. `history_end < cutoff < label_end` is required. Only one row per household/cutoff is permitted; evaluate each task/model/run separately. Baseline probabilities must be fitted without test labels.
+The fixture is handcrafted smoke-test data, not research evidence. The evaluation CLI accepts ISO dates or integer dataset days. Metadata checks alone do not prove feature provenance.
 
-The interval estimates the observation-weighted Brier difference, model minus baseline; negative favors the model. Whole households are resampled, keeping paired predictions together. This does not account for shared temporal shocks. Small subgroups are descriptive only. Metadata checks do not prove absence of upstream leakage.
+## Evidence and scope
 
-`--evidence observed` is an operator declaration, not an automatic verification of data provenance. Raw data, credentials and generated outputs are excluded from Git.
+- [Aggregate results and provenance](reports/baseline_v1/results.json)
+- [Dataset card](docs/DATASET_CARD.md)
+- [Fixed experiment protocol](configs/complete_journey_v1.json)
+***REMOVED***
 
-This is an independent project.
+Next: execute matched LLM conditions; evaluate failures and uncertainty; prepare research note, video and presentation. This is an independent project.

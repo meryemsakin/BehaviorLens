@@ -1,0 +1,27 @@
+{
+  "protocol_version": 1,
+  "task": "purchase in selected commodity within next 28 dataset days",
+  "horizon_days": 28,
+  "history_days": 84,
+  "category_selection_before_day": 365,
+  "category_rule": "most distinct household buyers in GROCERY before day 365; alphabetical tie break",
+  "train_cutoffs": [365, 393, 421, 449, 477],
+  "validation_cutoffs": [533, 561],
+  "test_cutoffs": [617, 645, 673],
+  "eligibility": "at least one positive-quantity transaction within prior 84 days",
+  "primary_metric": "brier",
+  "bootstrap_unit": "household",
+  "bootstrap_repeats": 5000,
+  "seed": 42,
+  "models": {
+    "logistic": {"C": 1.0, "max_iter": 2000},
+    "gradient_boosting": {"max_iter": 100, "max_leaf_nodes": 7, "l2_regularization": 1.0}
+  },
+  "source": "https://www.dunnhumby.com/source-files/",
+  "limitations": [
+    "Dataset days are relative indices, not known calendar dates.",
+    "Nonpurchase means no qualifying record at the observed retailer, not no purchase anywhere.",
+    "Demographic codes are not decoded into age or income.",
+    "One category and one retailer cannot establish general population fidelity."
+  ]
+}
