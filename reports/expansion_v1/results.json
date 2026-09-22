@@ -1,0 +1,1262 @@
+{
+  "status": "exploratory held-out comparison; not external preregistration",
+  "results": {
+    "prevalence": {
+      "model": {
+        "n": 566,
+        "households": 200,
+        "brier": 0.24617625175998908,
+        "log_loss": 0.6854800716688356,
+        "ece": 0.00035029068551983844,
+        "prevalence": 0.5618374558303887,
+        "mean_probability": 0.5621877465159085,
+        "calibration": [
+          {
+            "bin": 5,
+            "n": 566,
+            "predicted": 0.5621877465159085,
+            "observed": 0.5618374558303887
+          }
+        ]
+      },
+      "baseline": {
+        "n": 566,
+        "households": 200,
+        "brier": 0.24617625175998908,
+        "log_loss": 0.6854800716688356,
+        "ece": 0.00035029068551983844,
+        "prevalence": 0.5618374558303887,
+        "mean_probability": 0.5621877465159085,
+        "calibration": [
+          {
+            "bin": 5,
+            "n": 566,
+            "predicted": 0.5621877465159085,
+            "observed": 0.5618374558303887
+          }
+        ]
+      },
+      "brier_difference": 0.0,
+      "uncertainty": {
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "seed": 42,
+        "repeats": 5000,
+        "unit": "household",
+        "method": "percentile"
+      },
+      "subgroups": {
+        "demographics_available": {
+          "metrics": {
+            "n": 222,
+            "households": 75,
+            "brier": 0.22305356754307853,
+            "log_loss": 0.6389940046024807,
+            "ece": 0.18556000123183924,
+            "prevalence": 0.7477477477477478,
+            "mean_probability": 0.5621877465159085,
+            "calibration": [
+              {
+                "bin": 5,
+                "n": 222,
+                "predicted": 0.5621877465159085,
+                "observed": 0.7477477477477478
+              }
+            ]
+          },
+          "descriptive_only": true
+        },
+        "demographics_missing": {
+          "metrics": {
+            "n": 344,
+            "households": 125,
+            "brier": 0.2610984491325302,
+            "log_loss": 0.7154798009965415,
+            "ece": 0.12032728139962945,
+            "prevalence": 0.4418604651162791,
+            "mean_probability": 0.5621877465159085,
+            "calibration": [
+              {
+                "bin": 5,
+                "n": 344,
+                "predicted": 0.5621877465159085,
+                "observed": 0.4418604651162791
+              }
+            ]
+          },
+          "descriptive_only": true
+        }
+      },
+      "limitations": [
+        "Timestamp checks use supplied metadata; they do not prove feature provenance.",
+        "Intervals do not account for shared temporal shocks.",
+        "Subgroups are descriptive; no multiple-comparison or small-sample claims.",
+        "One binary outcome does not establish population representativeness."
+      ],
+      "average_precision": 0.5618374558303887
+    },
+    "logistic": {
+      "model": {
+        "n": 566,
+        "households": 200,
+        "brier": 0.15811051902735468,
+        "log_loss": 0.4770096249634834,
+        "ece": 0.028182250005369364,
+        "prevalence": 0.5618374558303887,
+        "mean_probability": 0.575341220434425,
+        "calibration": [
+          {
+            "bin": 1,
+            "n": 101,
+            "predicted": 0.17107581890298543,
+            "observed": 0.15841584158415842
+          },
+          {
+            "bin": 2,
+            "n": 50,
+            "predicted": 0.24238833959899644,
+            "observed": 0.3
+          },
+          {
+            "bin": 3,
+            "n": 44,
+            "predicted": 0.35396696881927764,
+            "observed": 0.2727272727272727
+          },
+          {
+            "bin": 4,
+            "n": 58,
+            "predicted": 0.44874971292492016,
+            "observed": 0.46551724137931033
+          },
+          {
+            "bin": 5,
+            "n": 44,
+            "predicted": 0.5492950503385854,
+            "observed": 0.5
+          },
+          {
+            "bin": 6,
+            "n": 44,
+            "predicted": 0.6559743039891082,
+            "observed": 0.6136363636363636
+          },
+          {
+            "bin": 7,
+            "n": 49,
+            "predicted": 0.7498657109384848,
+            "observed": 0.7142857142857143
+          },
+          {
+            "bin": 8,
+            "n": 49,
+            "predicted": 0.8605850279756695,
+            "observed": 0.8367346938775511
+          },
+          {
+            "bin": 9,
+            "n": 127,
+            "predicted": 0.9661345535576973,
+            "observed": 0.968503937007874
+          }
+        ]
+      },
+      "baseline": {
+        "n": 566,
+        "households": 200,
+        "brier": 0.24617625175998908,
+        "log_loss": 0.6854800716688356,
+        "ece": 0.00035029068551983844,
+        "prevalence": 0.5618374558303887,
+        "mean_probability": 0.5621877465159085,
+        "calibration": [
+          {
+            "bin": 5,
+            "n": 566,
+            "predicted": 0.5621877465159085,
+            "observed": 0.5618374558303887
+          }
+        ]
+      },
+      "brier_difference": -0.0880657327326344,
+      "uncertainty": {
+        "ci95": [
+          -0.10802244126611929,
+          -0.06779566804326409
+        ],
+        "seed": 42,
+        "repeats": 5000,
+        "unit": "household",
+        "method": "percentile"
+      },
+      "subgroups": {
+        "demographics_available": {
+          "metrics": {
+            "n": 222,
+            "households": 75,
+            "brier": 0.13257443394864113,
+            "log_loss": 0.3944465308015568,
+            "ece": 0.04494956180515356,
+            "prevalence": 0.7477477477477478,
+            "mean_probability": 0.7283037164180313,
+            "calibration": [
+              {
+                "bin": 1,
+                "n": 9,
+                "predicted": 0.18056642041056564,
+                "observed": 0.2222222222222222
+              },
+              {
+                "bin": 2,
+                "n": 10,
+                "predicted": 0.24199419108118175,
+                "observed": 0.4
+              },
+              {
+                "bin": 3,
+                "n": 11,
+                "predicted": 0.3528946866489399,
+                "observed": 0.36363636363636365
+              },
+              {
+                "bin": 4,
+                "n": 16,
+                "predicted": 0.45572115890181286,
+                "observed": 0.5625
+              },
+              {
+                "bin": 5,
+                "n": 17,
+                "predicted": 0.5491474573928808,
+                "observed": 0.47058823529411764
+              },
+              {
+                "bin": 6,
+                "n": 27,
+                "predicted": 0.6607705620841975,
+                "observed": 0.6666666666666666
+              },
+              {
+                "bin": 7,
+                "n": 26,
+                "predicted": 0.7498310425805591,
+                "observed": 0.6923076923076923
+              },
+              {
+                "bin": 8,
+                "n": 26,
+                "predicted": 0.8619867440324813,
+                "observed": 0.8846153846153846
+              },
+              {
+                "bin": 9,
+                "n": 80,
+                "predicted": 0.9672678856354665,
+                "observed": 1.0
+              }
+            ]
+          },
+          "descriptive_only": true
+        },
+        "demographics_missing": {
+          "metrics": {
+            "n": 344,
+            "households": 125,
+            "brier": 0.1745902018397803,
+            "log_loss": 0.5302916217772848,
+            "ece": 0.04232777785699313,
+            "prevalence": 0.4418604651162791,
+            "mean_probability": 0.47662705151477225,
+            "calibration": [
+              {
+                "bin": 1,
+                "n": 92,
+                "predicted": 0.17014739049463518,
+                "observed": 0.15217391304347827
+              },
+              {
+                "bin": 2,
+                "n": 40,
+                "predicted": 0.24248687672845012,
+                "observed": 0.275
+              },
+              {
+                "bin": 3,
+                "n": 33,
+                "predicted": 0.3543243962093902,
+                "observed": 0.24242424242424243
+              },
+              {
+                "bin": 4,
+                "n": 42,
+                "predicted": 0.44609392398134196,
+                "observed": 0.42857142857142855
+              },
+              {
+                "bin": 5,
+                "n": 27,
+                "predicted": 0.5493879792303252,
+                "observed": 0.5185185185185185
+              },
+              {
+                "bin": 6,
+                "n": 17,
+                "predicted": 0.6483567176027899,
+                "observed": 0.5294117647058824
+              },
+              {
+                "bin": 7,
+                "n": 23,
+                "predicted": 0.74990490125614,
+                "observed": 0.7391304347826086
+              },
+              {
+                "bin": 8,
+                "n": 23,
+                "predicted": 0.8590004793897082,
+                "observed": 0.782608695652174
+              },
+              {
+                "bin": 9,
+                "n": 47,
+                "predicted": 0.9642054776806436,
+                "observed": 0.9148936170212766
+              }
+            ]
+          },
+          "descriptive_only": true
+        }
+      },
+      "limitations": [
+        "Timestamp checks use supplied metadata; they do not prove feature provenance.",
+        "Intervals do not account for shared temporal shocks.",
+        "Subgroups are descriptive; no multiple-comparison or small-sample claims.",
+        "One binary outcome does not establish population representativeness."
+      ],
+      "average_precision": 0.8869315829568475
+    },
+    "gradient_boosting": {
+      "model": {
+        "n": 566,
+        "households": 200,
+        "brier": 0.15782792194480103,
+        "log_loss": 0.47639016328747147,
+        "ece": 0.051844933120038635,
+        "prevalence": 0.5618374558303887,
+        "mean_probability": 0.5739493307033036,
+        "calibration": [
+          {
+            "bin": 0,
+            "n": 32,
+            "predicted": 0.078758358610874,
+            "observed": 0.0625
+          },
+          {
+            "bin": 1,
+            "n": 54,
+            "predicted": 0.15900625958278566,
+            "observed": 0.18518518518518517
+          },
+          {
+            "bin": 2,
+            "n": 67,
+            "predicted": 0.243571841058097,
+            "observed": 0.3283582089552239
+          },
+          {
+            "bin": 3,
+            "n": 36,
+            "predicted": 0.3559000430371729,
+            "observed": 0.25
+          },
+          {
+            "bin": 4,
+            "n": 53,
+            "predicted": 0.4534426715274324,
+            "observed": 0.37735849056603776
+          },
+          {
+            "bin": 5,
+            "n": 57,
+            "predicted": 0.539970039346641,
+            "observed": 0.543859649122807
+          },
+          {
+            "bin": 6,
+            "n": 39,
+            "predicted": 0.6495702930753896,
+            "observed": 0.46153846153846156
+          },
+          {
+            "bin": 7,
+            "n": 40,
+            "predicted": 0.7517900226235628,
+            "observed": 0.85
+          },
+          {
+            "bin": 8,
+            "n": 63,
+            "predicted": 0.8572566606248211,
+            "observed": 0.8253968253968254
+          },
+          {
+            "bin": 9,
+            "n": 125,
+            "predicted": 0.9631538799748944,
+            "observed": 0.96
+          }
+        ]
+      },
+      "baseline": {
+        "n": 566,
+        "households": 200,
+        "brier": 0.24617625175998908,
+        "log_loss": 0.6854800716688356,
+        "ece": 0.00035029068551983844,
+        "prevalence": 0.5618374558303887,
+        "mean_probability": 0.5621877465159085,
+        "calibration": [
+          {
+            "bin": 5,
+            "n": 566,
+            "predicted": 0.5621877465159085,
+            "observed": 0.5618374558303887
+          }
+        ]
+      },
+      "brier_difference": -0.08834832981518806,
+      "uncertainty": {
+        "ci95": [
+          -0.10867219339380245,
+          -0.06735228298685911
+        ],
+        "seed": 42,
+        "repeats": 5000,
+        "unit": "household",
+        "method": "percentile"
+      },
+      "subgroups": {
+        "demographics_available": {
+          "metrics": {
+            "n": 222,
+            "households": 75,
+            "brier": 0.13039989381774633,
+            "log_loss": 0.3916156553706913,
+            "ece": 0.06130493826924979,
+            "prevalence": 0.7477477477477478,
+            "mean_probability": 0.7310810029982066,
+            "calibration": [
+              {
+                "bin": 0,
+                "n": 1,
+                "predicted": 0.06447339999893086,
+                "observed": 0.0
+              },
+              {
+                "bin": 1,
+                "n": 5,
+                "predicted": 0.17388149026108154,
+                "observed": 0.2
+              },
+              {
+                "bin": 2,
+                "n": 15,
+                "predicted": 0.2525693041362,
+                "observed": 0.4666666666666667
+              },
+              {
+                "bin": 3,
+                "n": 7,
+                "predicted": 0.3552032413918354,
+                "observed": 0.14285714285714285
+              },
+              {
+                "bin": 4,
+                "n": 12,
+                "predicted": 0.4503076640069439,
+                "observed": 0.4166666666666667
+              },
+              {
+                "bin": 5,
+                "n": 26,
+                "predicted": 0.5445447710089699,
+                "observed": 0.5384615384615384
+              },
+              {
+                "bin": 6,
+                "n": 20,
+                "predicted": 0.656921048123162,
+                "observed": 0.55
+              },
+              {
+                "bin": 7,
+                "n": 26,
+                "predicted": 0.7509081455917349,
+                "observed": 0.8461538461538461
+              },
+              {
+                "bin": 8,
+                "n": 30,
+                "predicted": 0.8567888804722028,
+                "observed": 0.8333333333333334
+              },
+              {
+                "bin": 9,
+                "n": 80,
+                "predicted": 0.9645448048272585,
+                "observed": 1.0
+              }
+            ]
+          },
+          "descriptive_only": true
+        },
+        "demographics_missing": {
+          "metrics": {
+            "n": 344,
+            "households": 125,
+            "brier": 0.17552856800353983,
+            "log_loss": 0.5310992933965563,
+            "ece": 0.06315027665777172,
+            "prevalence": 0.4418604651162791,
+            "mean_probability": 0.47254458869903476,
+            "calibration": [
+              {
+                "bin": 0,
+                "n": 31,
+                "predicted": 0.0792191637273883,
+                "observed": 0.06451612903225806
+              },
+              {
+                "bin": 1,
+                "n": 49,
+                "predicted": 0.15748837890132691,
+                "observed": 0.1836734693877551
+              },
+              {
+                "bin": 2,
+                "n": 52,
+                "predicted": 0.24097641901633657,
+                "observed": 0.28846153846153844
+              },
+              {
+                "bin": 3,
+                "n": 29,
+                "predicted": 0.3560682365377716,
+                "observed": 0.27586206896551724
+              },
+              {
+                "bin": 4,
+                "n": 41,
+                "predicted": 0.4543602347041608,
+                "observed": 0.36585365853658536
+              },
+              {
+                "bin": 5,
+                "n": 31,
+                "predicted": 0.5361331676298491,
+                "observed": 0.5483870967741935
+              },
+              {
+                "bin": 6,
+                "n": 19,
+                "predicted": 0.6418326561829977,
+                "observed": 0.3684210526315789
+              },
+              {
+                "bin": 7,
+                "n": 14,
+                "predicted": 0.7534277942541002,
+                "observed": 0.8571428571428571
+              },
+              {
+                "bin": 8,
+                "n": 33,
+                "predicted": 0.8576819153090196,
+                "observed": 0.8181818181818182
+              },
+              {
+                "bin": 9,
+                "n": 45,
+                "predicted": 0.9606811246818024,
+                "observed": 0.8888888888888888
+              }
+            ]
+          },
+          "descriptive_only": true
+        }
+      },
+      "limitations": [
+        "Timestamp checks use supplied metadata; they do not prove feature provenance.",
+        "Intervals do not account for shared temporal shocks.",
+        "Subgroups are descriptive; no multiple-comparison or small-sample claims.",
+        "One binary outcome does not establish population representativeness."
+      ],
+      "average_precision": 0.8864707253749526
+    },
+    "structured": {
+      "model": {
+        "n": 566,
+        "households": 200,
+        "brier": 0.17555318021201413,
+        "log_loss": 0.6442344833174636,
+        "ece": 0.08920494699646643,
+        "prevalence": 0.5618374558303887,
+        "mean_probability": 0.4910070671378092,
+        "calibration": [
+          {
+            "bin": 0,
+            "n": 123,
+            "predicted": 0.0167479674796748,
+            "observed": 0.18699186991869918
+          },
+          {
+            "bin": 1,
+            "n": 29,
+            "predicted": 0.15,
+            "observed": 0.3103448275862069
+          },
+          {
+            "bin": 3,
+            "n": 95,
+            "predicted": 0.35,
+            "observed": 0.3684210526315789
+          },
+          {
+            "bin": 4,
+            "n": 3,
+            "predicted": 0.45,
+            "observed": 0.3333333333333333
+          },
+          {
+            "bin": 6,
+            "n": 109,
+            "predicted": 0.6500000000000001,
+            "observed": 0.6055045871559633
+          },
+          {
+            "bin": 7,
+            "n": 99,
+            "predicted": 0.75,
+            "observed": 0.8080808080808081
+          },
+          {
+            "bin": 8,
+            "n": 108,
+            "predicted": 0.85,
+            "observed": 0.9629629629629629
+          }
+        ]
+      },
+      "baseline": {
+        "n": 566,
+        "households": 200,
+        "brier": 0.24617625175998908,
+        "log_loss": 0.6854800716688356,
+        "ece": 0.00035029068551983844,
+        "prevalence": 0.5618374558303887,
+        "mean_probability": 0.5621877465159085,
+        "calibration": [
+          {
+            "bin": 5,
+            "n": 566,
+            "predicted": 0.5621877465159085,
+            "observed": 0.5618374558303887
+          }
+        ]
+      },
+      "brier_difference": -0.07062307154797495,
+      "uncertainty": {
+        "ci95": [
+          -0.09340336710428802,
+          -0.047543838591400586
+        ],
+        "seed": 42,
+        "repeats": 5000,
+        "unit": "household",
+        "method": "percentile"
+      },
+      "subgroups": {
+        "demographics_available": {
+          "metrics": {
+            "n": 222,
+            "households": 75,
+            "brier": 0.15768918918918917,
+            "log_loss": 0.6593400380073,
+            "ece": 0.12414414414414417,
+            "prevalence": 0.7477477477477478,
+            "mean_probability": 0.6321621621621621,
+            "calibration": [
+              {
+                "bin": 0,
+                "n": 14,
+                "predicted": 0.017142857142857144,
+                "observed": 0.35714285714285715
+              },
+              {
+                "bin": 1,
+                "n": 7,
+                "predicted": 0.15,
+                "observed": 0.14285714285714285
+              },
+              {
+                "bin": 3,
+                "n": 30,
+                "predicted": 0.35,
+                "observed": 0.5333333333333333
+              },
+              {
+                "bin": 4,
+                "n": 2,
+                "predicted": 0.45,
+                "observed": 0.0
+              },
+              {
+                "bin": 6,
+                "n": 56,
+                "predicted": 0.65,
+                "observed": 0.6785714285714286
+              },
+              {
+                "bin": 7,
+                "n": 48,
+                "predicted": 0.75,
+                "observed": 0.875
+              },
+              {
+                "bin": 8,
+                "n": 65,
+                "predicted": 0.85,
+                "observed": 0.9846153846153847
+              }
+            ]
+          },
+          "descriptive_only": true
+        },
+        "demographics_missing": {
+          "metrics": {
+            "n": 344,
+            "households": 125,
+            "brier": 0.18708168604651162,
+            "log_loss": 0.634486131162976,
+            "ece": 0.10270348837209302,
+            "prevalence": 0.4418604651162791,
+            "mean_probability": 0.3999127906976744,
+            "calibration": [
+              {
+                "bin": 0,
+                "n": 109,
+                "predicted": 0.01669724770642202,
+                "observed": 0.1651376146788991
+              },
+              {
+                "bin": 1,
+                "n": 22,
+                "predicted": 0.15,
+                "observed": 0.36363636363636365
+              },
+              {
+                "bin": 3,
+                "n": 65,
+                "predicted": 0.35,
+                "observed": 0.2923076923076923
+              },
+              {
+                "bin": 4,
+                "n": 1,
+                "predicted": 0.45,
+                "observed": 1.0
+              },
+              {
+                "bin": 6,
+                "n": 53,
+                "predicted": 0.65,
+                "observed": 0.5283018867924528
+              },
+              {
+                "bin": 7,
+                "n": 51,
+                "predicted": 0.75,
+                "observed": 0.7450980392156863
+              },
+              {
+                "bin": 8,
+                "n": 43,
+                "predicted": 0.85,
+                "observed": 0.9302325581395349
+              }
+            ]
+          },
+          "descriptive_only": true
+        }
+      },
+      "limitations": [
+        "Timestamp checks use supplied metadata; they do not prove feature provenance.",
+        "Intervals do not account for shared temporal shocks.",
+        "Subgroups are descriptive; no multiple-comparison or small-sample claims.",
+        "One binary outcome does not establish population representativeness."
+      ],
+      "average_precision": 0.8418564597620921
+    },
+    "persona": {
+      "model": {
+        "n": 566,
+        "households": 200,
+        "brier": 0.19651453180212014,
+        "log_loss": 0.7759800433201016,
+        "ece": 0.10484982332155478,
+        "prevalence": 0.5618374558303887,
+        "mean_probability": 0.46165194346289756,
+        "calibration": [
+          {
+            "bin": 0,
+            "n": 139,
+            "predicted": 0.038920863309352516,
+            "observed": 0.19424460431654678
+          },
+          {
+            "bin": 1,
+            "n": 64,
+            "predicted": 0.1446875,
+            "observed": 0.359375
+          },
+          {
+            "bin": 2,
+            "n": 6,
+            "predicted": 0.24,
+            "observed": 0.5
+          },
+          {
+            "bin": 3,
+            "n": 49,
+            "predicted": 0.3478571428571428,
+            "observed": 0.5306122448979592
+          },
+          {
+            "bin": 4,
+            "n": 17,
+            "predicted": 0.45,
+            "observed": 0.6470588235294118
+          },
+          {
+            "bin": 5,
+            "n": 4,
+            "predicted": 0.5425,
+            "observed": 0.5
+          },
+          {
+            "bin": 6,
+            "n": 91,
+            "predicted": 0.648021978021978,
+            "observed": 0.7142857142857143
+          },
+          {
+            "bin": 7,
+            "n": 71,
+            "predicted": 0.7485915492957746,
+            "observed": 0.7323943661971831
+          },
+          {
+            "bin": 8,
+            "n": 125,
+            "predicted": 0.8496,
+            "observed": 0.872
+          }
+        ]
+      },
+      "baseline": {
+        "n": 566,
+        "households": 200,
+        "brier": 0.24617625175998908,
+        "log_loss": 0.6854800716688356,
+        "ece": 0.00035029068551983844,
+        "prevalence": 0.5618374558303887,
+        "mean_probability": 0.5621877465159085,
+        "calibration": [
+          {
+            "bin": 5,
+            "n": 566,
+            "predicted": 0.5621877465159085,
+            "observed": 0.5618374558303887
+          }
+        ]
+      },
+      "brier_difference": -0.049661719957868944,
+      "uncertainty": {
+        "ci95": [
+          -0.07495986980226922,
+          -0.02446485756008739
+        ],
+        "seed": 42,
+        "repeats": 5000,
+        "unit": "household",
+        "method": "percentile"
+      },
+      "subgroups": {
+        "demographics_available": {
+          "metrics": {
+            "n": 222,
+            "households": 75,
+            "brier": 0.1937329954954955,
+            "log_loss": 0.8728595423204625,
+            "ece": 0.16997747747747746,
+            "prevalence": 0.7477477477477478,
+            "mean_probability": 0.5833558558558558,
+            "calibration": [
+              {
+                "bin": 0,
+                "n": 19,
+                "predicted": 0.04315789473684211,
+                "observed": 0.3157894736842105
+              },
+              {
+                "bin": 1,
+                "n": 21,
+                "predicted": 0.14523809523809522,
+                "observed": 0.47619047619047616
+              },
+              {
+                "bin": 2,
+                "n": 4,
+                "predicted": 0.2475,
+                "observed": 0.5
+              },
+              {
+                "bin": 3,
+                "n": 20,
+                "predicted": 0.35025,
+                "observed": 0.7
+              },
+              {
+                "bin": 4,
+                "n": 9,
+                "predicted": 0.44999999999999996,
+                "observed": 0.7777777777777778
+              },
+              {
+                "bin": 5,
+                "n": 4,
+                "predicted": 0.5425,
+                "observed": 0.5
+              },
+              {
+                "bin": 6,
+                "n": 43,
+                "predicted": 0.6469767441860466,
+                "observed": 0.8372093023255814
+              },
+              {
+                "bin": 7,
+                "n": 30,
+                "predicted": 0.7483333333333333,
+                "observed": 0.7333333333333333
+              },
+              {
+                "bin": 8,
+                "n": 72,
+                "predicted": 0.8493055555555555,
+                "observed": 0.9305555555555556
+              }
+            ]
+          },
+          "descriptive_only": true
+        },
+        "demographics_missing": {
+          "metrics": {
+            "n": 344,
+            "households": 125,
+            "brier": 0.1983095930232558,
+            "log_loss": 0.713458971290799,
+            "ece": 0.09305232558139534,
+            "prevalence": 0.4418604651162791,
+            "mean_probability": 0.38311046511627905,
+            "calibration": [
+              {
+                "bin": 0,
+                "n": 120,
+                "predicted": 0.03825,
+                "observed": 0.175
+              },
+              {
+                "bin": 1,
+                "n": 43,
+                "predicted": 0.1444186046511628,
+                "observed": 0.3023255813953488
+              },
+              {
+                "bin": 2,
+                "n": 2,
+                "predicted": 0.225,
+                "observed": 0.5
+              },
+              {
+                "bin": 3,
+                "n": 29,
+                "predicted": 0.3462068965517241,
+                "observed": 0.41379310344827586
+              },
+              {
+                "bin": 4,
+                "n": 8,
+                "predicted": 0.45,
+                "observed": 0.5
+              },
+              {
+                "bin": 6,
+                "n": 48,
+                "predicted": 0.6489583333333334,
+                "observed": 0.6041666666666666
+              },
+              {
+                "bin": 7,
+                "n": 41,
+                "predicted": 0.748780487804878,
+                "observed": 0.7317073170731707
+              },
+              {
+                "bin": 8,
+                "n": 53,
+                "predicted": 0.85,
+                "observed": 0.7924528301886793
+              }
+            ]
+          },
+          "descriptive_only": true
+        }
+      },
+      "limitations": [
+        "Timestamp checks use supplied metadata; they do not prove feature provenance.",
+        "Intervals do not account for shared temporal shocks.",
+        "Subgroups are descriptive; no multiple-comparison or small-sample claims.",
+        "One binary outcome does not establish population representativeness."
+      ],
+      "average_precision": 0.7926830856648106
+    }
+  },
+  "comparisons": {
+    "structured": {
+      "difference": 0.02096135159010601,
+      "uncertainty": {
+        "ci95": [
+          0.009734508928571426,
+          0.0326128842676311
+        ],
+        "seed": 42,
+        "repeats": 5000,
+        "unit": "household",
+        "method": "percentile"
+      },
+      "by_window": {
+        "617": 0.025685695187165763,
+        "645": 0.01939109947643977,
+        "673": 0.017857446808510646
+      },
+      "by_segment": {
+        "demographics_available": 0.036043806306306325,
+        "demographics_missing": 0.011227906976744167
+      }
+    },
+    "gradient_boosting": {
+      "difference": 0.038686609857319115,
+      "uncertainty": {
+        "ci95": [
+          0.02479582033377855,
+          0.05307654828748164
+        ],
+        "seed": 42,
+        "repeats": 5000,
+        "unit": "household",
+        "method": "percentile"
+      },
+      "by_window": {
+        "617": 0.049463656545232076,
+        "645": 0.0388149560516067,
+        "673": 0.027836493613975194
+      },
+      "by_segment": {
+        "demographics_available": 0.06333310167774917,
+        "demographics_missing": 0.02278102501971596
+      }
+    },
+    "logistic": {
+      "difference": 0.03840401277476546,
+      "uncertainty": {
+        "ci95": [
+          0.0244873225080321,
+          0.05275860895284931
+        ],
+        "seed": 42,
+        "repeats": 5000,
+        "unit": "household",
+        "method": "percentile"
+      },
+      "by_window": {
+        "617": 0.04785488613643696,
+        "645": 0.03866673331343731,
+        "673": 0.028736497128388327
+      },
+      "by_segment": {
+        "demographics_available": 0.06115856154685437,
+        "demographics_missing": 0.02371939118347549
+      }
+    }
+  },
+  "summary": {
+    "status": "completed",
+    "planned_points": 566,
+    "completed_points": 566,
+    "calls": 1698,
+    "usage_cost_usd": 0.24824320000000036,
+    "cumulative_cost_usd": 0.25389800000000035,
+    "pending_reserved_usd": 0,
+    "cap_usd": 0.5,
+    "note": "Usage-based standard-price estimate; not account balance. Uncertain requests keep reservations."
+  },
+  "protocol": {
+    "model": "gpt-4.1-mini-2025-04-14",
+    "workers": 6,
+    "cap_including_pilot": 0.5,
+    "prior_cost": 0.005654800000000001,
+    "plan": {
+      "status": "prepared, not executed",
+      "sample_households": 200,
+      "prediction_points": 566,
+      "expected_calls": 1698,
+      "conditions": [
+        "structured history",
+        "persona summary of exactly same source"
+      ],
+      "selection": "SHA-256 household ranking with fixed prefix; not outcome based",
+      "parent_manifest_sha256": "593525aa65fde3e8a30593951ba269cbb00f322f1ac7ea4becd8050eddf07ac2",
+      "limitations": [
+        "Comparison with baselines must use this exact matched subset.",
+        "Persona summarization and text length remain part of the treatment.",
+        "No provider or cost authorization assumed."
+      ],
+      "pilot_households_excluded": 5,
+      "purpose": "exploratory expansion; pilot and aggregate baseline outcomes already inspected",
+      "primary_comparison": "persona minus structured Brier",
+      "secondary_comparison": "persona minus gradient boosting Brier",
+      "interval": "paired household percentile bootstrap, 5000 replicates, seed 42; marginal intervals, no familywise correction",
+      "practical_margin_brier": 0.01,
+      "stop_rule": "complete fixed sample or report incomplete; no outcome-based early stopping",
+      "prompt_changes_from_pilot": false,
+      "stability": "not evaluated; one draw at temperature 0"
+    },
+    "requests_sha256": "dd06ff184722b8d72c249809d35693e2eda56868c24cd0337835d400423fac45",
+    "code_sha256": "542b17496f926e5a1f6285644a957bc52efa4a3752dead8b65f1fa7850586a38",
+    "prices": {
+      "input_per_million": 0.4,
+      "output_per_million": 1.6
+    },
+    "retries": 0
+  },
+  "run_id": "expansion_v1",
+  "baseline_manifest_sha256": "593525aa65fde3e8a30593951ba269cbb00f322f1ac7ea4becd8050eddf07ac2",
+  "plan_sha256": "71df9f32656a82b10c02357cb99159ba80f5f038b80a6b44b76f4414877cdd14",
+  "predictions_sha256": "eb9c1efb1a7bf592dbc42c2417dc693c66f391c992449ba64fdc0ad283fb4214",
+  "latency_mean_seconds": 1.2728694694101492,
+  "failures": 0,
+  "primary": "persona minus structured-history Brier",
+  "secondary": "persona minus gradient-boosting Brier",
+  "caveats": [
+    "Pilot households excluded; baseline aggregate test results were previously inspected.",
+    "No prompt or model changes from pilot. No outcome-based stopping.",
+    "Intervals are marginal household bootstrap intervals, without multiple-comparison correction.",
+    "Single model, category and retailer; shared temporal shocks and cross-model stability not assessed.",
+    "Persona summarization may change or omit details; causal mechanism not established."
+  ],
+  "mechanism": {
+    "decomposition": {
+      "gradient_boosting": {
+        "reliability": 0.005421194848143097,
+        "resolution": 0.09279428914709922,
+        "uncertainty": 0.24617612905642472,
+        "mean_probability": 0.5739493307033036,
+        "distinct_values": 492
+      },
+      "structured": {
+        "reliability": 0.011151053865183747,
+        "resolution": 0.08200634491994223,
+        "uncertainty": 0.24617612905642472,
+        "mean_probability": 0.4910070671378092,
+        "distinct_values": 10
+      },
+      "persona": {
+        "reliability": 0.016773333756498365,
+        "resolution": 0.06682078137717065,
+        "uncertainty": 0.24617612905642472,
+        "mean_probability": 0.46165194346289756,
+        "distinct_values": 28
+      }
+    },
+    "by_history": {
+      "none": {
+        "n": 123,
+        "observed": 0.18699186991869918,
+        "mean_probability": {
+          "gradient_boosting": 0.16764091010756554,
+          "structured": 0.0167479674796748,
+          "persona": 0.03747967479674797
+        },
+        "persona_minus_structured": -0.006713008130081302
+      },
+      "1\u20132": {
+        "n": 148,
+        "observed": 0.3783783783783784,
+        "mean_probability": {
+          "gradient_boosting": 0.40963611707954856,
+          "structured": 0.4094594594594595,
+          "persona": 0.38020270270270273
+        },
+        "persona_minus_structured": 0.026093918918918914
+      },
+      "3\u20135": {
+        "n": 118,
+        "observed": 0.635593220338983,
+        "mean_probability": {
+          "gradient_boosting": 0.6760368984528933,
+          "structured": 0.6322033898305084,
+          "persona": 0.5842372881355932
+        },
+        "persona_minus_structured": 0.017144067796610162
+      },
+      "6+": {
+        "n": 177,
+        "observed": 0.9265536723163842,
+        "mean_probability": {
+          "gradient_boosting": 0.9256327112408173,
+          "structured": 0.7946327683615819,
+          "persona": 0.7427966101694915
+        },
+        "persona_minus_structured": 0.03844590395480226
+      }
+    },
+    "retention": {
+      "by_feature": {
+        "visits_28": 0.8992932862190812,
+        "visits_84": 0.9876325088339223,
+        "category_visits_28": 0.7367491166077739,
+        "category_visits_84": 0.8356890459363958,
+        "category_recency": 0.950530035335689,
+        "retailer_sales_28": 0.8992932862190812,
+        "retailer_sales_84": 1.0,
+        "category_sales_84": 0.8462897526501767
+      },
+      "mean": 0.894434628975265,
+      "loss_gap": {
+        "all_values_retained": {
+          "n": 396,
+          "persona_minus_structured": 0.025415909090909086
+        },
+        "some_values_not_verbatim": {
+          "n": 170,
+          "persona_minus_structured": 0.010584852941176469
+        }
+      }
+    },
+    "note": "Post-evaluation descriptive diagnostics. Groups were defined after viewing outcomes; no significance claim.",
+    "observed_rate": 0.5618374558303887
+  }
+}
