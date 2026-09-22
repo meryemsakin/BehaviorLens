@@ -25,14 +25,59 @@ def verdict(c, small=.005):
     return f"{word}{' (practically small)' if abs(c['estimate']) < small else ''}"
 
 
+def overstatement(s, c='persona'):
+    m = s['conditions'][c]
+    return m['mean_prediction'] / m['prevalence']
+
+
 def headline(r):
-    h = {s: r['studies'][s]['contrasts']['H1 persona vs structured LLM'] for s in r['studies']}
-    words = {s: verdict(c) for s, c in h.items()}
-    if all(w.startswith('worse') for w in words.values()):
-        return 'Personas lost predictive signal in both tasks.'
-    if all(w.startswith('better') for w in words.values()):
-        return 'Personas improved prediction in both tasks.'
-    return 'Persona effects depend on the task: ' + '; '.join(f'study {s} {w}' for s, w in words.items()) + '.'
+    st = r['studies'].values()
+    over = all(overstatement(s) > 1.25 for s in st)
+    lose = all(s['contrasts']['E1 structured LLM vs gradient boosting']['ci'][0] > 0 and
+               s['conditions']['persona']['brier'] > s['conditions']['gradient_boosting']['brier'] for s in st)
+    if over and lose:
+        return 'Synthetic customers overstated demand, and none beat a gradient-boosted model.'
+    if lose:
+        return 'No synthetic-customer condition beat a gradient-boosted model.'
+    h = {k: verdict(s['contrasts']['H1 persona vs structured LLM']) for k, s in r['studies'].items()}
+    return 'Persona effects by task: ' + '; '.join(f'study {k} {w}' for k, w in h.items()) + '.'
+
+
+def findings(r):
+    """Plain-language findings, each carrying its own numbers from results_v2.json."""
+    A, B = r['studies']['A'], r['studies']['B']
+    ci = lambda c: f"{c['estimate']:+.4f} [{c['ci'][0]:+.4f}, {c['ci'][1]:+.4f}]"
+    out = []
+    e1 = {k: s['contrasts']['E1 structured LLM vs gradient boosting'] for k, s in r['studies'].items()}
+    out.append(('No LLM condition beat gradient boosting.',
+                f"Structured LLM minus GBDT Brier: purchase {ci(e1['A'])}, coupons {ci(e1['B'])}. "
+                f"GBDT {A['conditions']['gradient_boosting']['brier']:.4f} vs {A['conditions']['structured']['brier']:.4f} and "
+                f"{B['conditions']['gradient_boosting']['brier']:.4f} vs {B['conditions']['structured']['brier']:.4f}."))
+    h2 = {k: s['contrasts']['H2 hybrid vs gradient boosting'] for k, s in r['studies'].items()}
+    out.append(('Adding the LLM to gradient boosting did not help.',
+                f"Hybrid minus GBDT: purchase {ci(h2['A'])}, coupons {ci(h2['B'])}; practically small and in the wrong direction."))
+    h1 = {k: s['contrasts']['H1 persona vs structured LLM'] for k, s in r['studies'].items()}
+    out.append(('Personas predicted worse than the record they were written from.',
+                f"Persona minus structured (97.5% CI): purchase {ci(h1['A'])}, coupons {ci(h1['B'])}."))
+    out.append(('The persona penalty is mostly over-optimism.',
+                f"Persona-based customers predicted a {A['conditions']['persona']['mean_prediction']:.0%} purchase rate "
+                f"(actual {A['conditions']['persona']['prevalence']:.0%}) and {B['conditions']['persona']['mean_prediction']:.0%} "
+                f"coupon redemption (actual {B['conditions']['persona']['prevalence']:.0%}). After validation calibration the gap "
+                f"shrinks to {ci(A['contrasts']['H3 calibrated persona vs calibrated structured'])} and "
+                f"{ci(B['contrasts']['H3 calibrated persona vs calibrated structured'])}."))
+    f = B['fidelity']['conditions']
+    out.append(('Simulated customers did not rank campaigns reliably.',
+                f"Rank correlation with observed redemption across nine campaigns: GBDT {f['gradient_boosting']['spearman']:.2f}, "
+                f"structured LLM {f['structured']['spearman']:.2f}, persona {f['persona']['spearman']:.2f}. Descriptive; nine points."))
+    rb = r.get('robustness')
+    if rb and 'A' in rb:
+        out.append(('A frontier model fixed much of the persona gap, not the baseline gap.',
+                    f"On a subsample, {r['models']['robustness']} persona Brier was {rb['A']['robust']['conditions']['persona']['brier']:.4f} vs "
+                    f"{rb['A']['main']['conditions']['persona']['brier']:.4f} for the main model (purchase), but GBDT stayed ahead "
+                    f"({rb['A']['robust']['conditions']['gradient_boosting']['brier']:.4f}; coupons "
+                    f"{rb['B']['robust']['conditions']['gradient_boosting']['brier']:.4f} vs "
+                    f"{rb['B']['robust']['conditions']['structured']['brier']:.4f} structured)."))
+    return out
 
 
 def bars(conditions, order):
@@ -120,6 +165,38 @@ def verdict_line(s):
             f"Adding the LLM to gradient boosting: {verdict(h2)} ({h2['estimate']:+.4f}).")
 
 
+def level_bars(s, single=False):
+    groups = {'All test campaigns': s['conditions']} if single else {k: v['conditions'] for k, v in s['by_category'].items()}
+    top = max(max(g[c]['mean_prediction'] for c in ('gradient_boosting', 'structured', 'persona')) for g in groups.values()) * 1.1
+    out = ''
+    for name, g in groups.items():
+        out += f'<p class="group">{e(name.title() if not single else name)}</p>'
+        rows = [('Observed', g['persona']['prevalence'], '#8aa0b5')] + [
+            (LABELS[c], g[c]['mean_prediction'], COLORS[c]) for c in ('gradient_boosting', 'structured', 'persona')]
+        out += ''.join(f'<div class="bar small"><span>{lab}</span><div class="track"><i style="width:{100*v/top:.1f}%;background:{col}"></i></div><b>{v:.0%}</b></div>'
+                       for lab, v, col in rows)
+    return out
+
+
+def related_section():
+    return ('<section class="panel"><h2>Related work and what is new here</h2><p>Evaluating LLM "synthetic users" against real '
+            'people is an active area. <a href="https://arxiv.org/abs/2506.05606">OPeRA</a> benchmarks next-action prediction in '
+            'real web shopping sessions; <a href="https://arxiv.org/abs/2607.26348">When Synthetic Users Fail</a> finds that no LLM '
+            'beats the strongest non-LLM baseline at the individual level on survey data. This study is consistent with that '
+            'finding and extends it to longitudinal purchase records and responses to real marketing campaigns, with a '
+            'same-source persona ablation, validation-only calibration and stacking, campaign-level fidelity, and a protocol '
+            'committed before any model output existed.</p></section>')
+
+
+def deviations_section(r):
+    return ('<section class="panel"><h2>Deviations from the protocol</h2><ul><li>The provider limits queued tokens per model. '
+            'Batches were therefore split into sequential parts; two submissions were rejected by that limit before any request '
+            'ran and were resubmitted unchanged. No processed request was retried.</li>'
+            f'<li>Failed or unparsable requests: {sum(r["failures"].values())}. Rows dropped: study A {r["studies"]["A"]["dropped"]["test"]}, '
+            f'study B {r["studies"]["B"]["dropped"]["test"]}.</li><li>Headline wording is generated from the results after they '
+            'existed; the contrasts, intervals and all numbers follow the frozen code.</li></ul></section>')
+
+
 def robustness_section(r):
     rb = r.get('robustness')
     if not rb or 'A' not in rb:
@@ -151,6 +228,7 @@ h2{font-size:clamp(22px,3vw,30px);line-height:1.25;margin:4px 0 12px}section{mar
 .axis em{position:absolute;top:0;bottom:0;border-left:1px dashed var(--muted)}.axis u{position:absolute;top:9px;height:4px;background:var(--accent)}.axis b{position:absolute;top:5px;width:12px;height:12px;margin-left:-6px;border-radius:50%;background:var(--text)}
 table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums;font-size:14px}th,td{padding:9px;text-align:left;border-bottom:1px solid var(--line)}.scroll{overflow-x:auto}
 svg{width:100%;height:auto}svg text{fill:var(--muted);font-size:12px}.legend{font-size:13px}details{margin:16px 0}summary{cursor:pointer}code{font-size:13px;overflow-wrap:anywhere}a{color:var(--accent)}
+.findings li{margin:12px 0}.group{margin:16px 0 4px;font-size:14px;font-weight:600}.bar.small{margin:6px 0;font-size:13px}.bar.small .track{height:14px}
 @media(max-width:760px){.grid{grid-template-columns:1fr}.stats{grid-template-columns:1fr 1fr}}
 '''
 
@@ -165,7 +243,12 @@ def render(results, protocol_commit, target):
 with the protocol and analysis code committed before any model output existed (commit <code>{e(protocol_commit)}</code>).</p>
 <div class="stats"><div><strong>{A["rows"]+B["rows"]:,}</strong><span>test rows</span></div><div><strong>{A["conditions"]["persona"]["n"]+B["conditions"]["persona"]["n"]:,}</strong><span>scored outcomes</span></div>
 <div><strong>9</strong><span>conditions per outcome</span></div><div><strong>{e(r["models"]["main"].split("-20")[0])}</strong><span>main model</span></div></div>
-{study_section("A", A)}{study_section("B", B)}{robustness_section(r)}
+<section><p class="eyebrow">Findings</p><ol class="findings">{''.join(f"<li><b>{e(t)}</b> {e(d)}</li>" for t, d in findings(r))}</ol></section>
+<section><p class="eyebrow">Population level</p><h2>What would a synthetic panel have told a retailer?</h2>
+<div class="grid"><article class="panel"><h3>Share of households buying, per category</h3>{level_bars(A)}</article>
+<article class="panel"><h3>Coupon redemption rate, all test campaigns</h3>{level_bars(B, single=True)}</article></div>
+<p class="muted">Mean predicted probability versus the observed rate on identical test rows. A simulator used for demand or campaign planning reads these levels directly.</p></section>
+{study_section("A", A)}{study_section("B", B)}{robustness_section(r)}{related_section()}{deviations_section(r)}
 <section class="panel"><h2>How to read this</h2><p>Brier score is mean squared error of a probability; lower is better. H1 compares a persona written from
 the shopping record with the record itself. H2 asks whether adding the LLM to a strong tabular model helps. Intervals resample households,
 so repeated observations of one household are not treated as independent.</p><p class="muted">One retailer (dunnhumby Complete Journey,
@@ -178,6 +261,60 @@ is not measured; prompts are one realistic design, not an optimised persona pipe
     (target/'results.json').write_text(json.dumps(r, indent=2))
 
 
+def animate(results, target):
+    """GIF/MP4 from results: predicted vs observed levels grow in, then the Brier comparison."""
+    import io
+    import shutil
+    import subprocess
+    import matplotlib
+    matplotlib.use('Agg')
+    import matplotlib.pyplot as plt
+    from PIL import Image
+    r = json.loads(Path(results).read_text())
+    target = Path(target)
+    studies = [('Share buying a category in 28 days', r['studies']['A']), ('Coupon redemption rate', r['studies']['B'])]
+    series = [('Observed', None, '#8aa0b5'), ('Gradient boosting', 'gradient_boosting', COLORS['gradient_boosting']),
+              ('LLM · structured record', 'structured', COLORS['structured']), ('LLM · persona', 'persona', COLORS['persona'])]
+    frames = []
+    for t in [i/16 for i in range(17)] + [1]*18 + [2]*36:
+        fig = plt.figure(figsize=(9.6, 5.4), dpi=100, facecolor='#0d1721')
+        fig.text(.05, .9, headline(r) if t > 1 else 'What would a synthetic panel have told a retailer?', color='#edf4fa',
+                 fontsize=15, weight='bold', wrap=True)
+        fig.text(.05, .84, 'Held-out retail households · mean predicted rate vs what actually happened', color='#a4b5c6', fontsize=11)
+        for i, (title, s) in enumerate(studies):
+            ax = fig.add_axes([.08 + .47*i, .22, .38, .5], facecolor='#0d1721')
+            vals = [s['conditions']['persona']['prevalence'] if k is None else s['conditions'][k]['mean_prediction'] for _, k, _ in series]
+            ax.bar(range(4), [v*min(t, 1) for v in vals], color=[c for _, _, c in series])
+            for j, v in enumerate(vals):
+                if t >= 1:
+                    ax.text(j, v*1.02, f'{v:.0%}', ha='center', color='#edf4fa', fontsize=11)
+            ax.set_ylim(0, max(vals)*1.25)
+            ax.set_xticks(range(4), ['Observed', 'GBDT', 'Structured', 'Persona'], color='#c9d6e2', fontsize=9)
+            ax.set_yticks([])
+            ax.spines[:].set_visible(False)
+            ax.set_title(title, color='#c9d6e2', fontsize=11)
+        if t > 1:
+            A, B = r['studies']['A']['conditions'], r['studies']['B']['conditions']
+            for y, name, m in ((.115, 'Purchase', A), (.075, 'Coupons', B)):
+                fig.text(.05, y, f"{name} · Brier, lower is better: GBDT {m['gradient_boosting']['brier']:.3f} · structured LLM "
+                         f"{m['structured']['brier']:.3f} · persona LLM {m['persona']['brier']:.3f}", color='#56dbc0', fontsize=10, weight='bold')
+        fig.text(.05, .025, 'BehaviorLens v2 · pre-registered · dunnhumby Complete Journey · one retailer', color='#71849a', fontsize=8)
+        buf = io.BytesIO()
+        fig.savefig(buf, format='png', facecolor=fig.get_facecolor())
+        plt.close(fig)
+        frames.append(Image.open(buf).convert('RGB'))
+    frames[0].save(target/'evidence.gif', save_all=True, append_images=frames[1:], duration=90, loop=0, optimize=True)
+    frames[-1].save(target/'evidence.png')
+    if shutil.which('ffmpeg'):
+        tmp = target/'_frames'
+        tmp.mkdir(exist_ok=True)
+        for i, f in enumerate(frames):
+            f.save(tmp/f'{i:03d}.png')
+        subprocess.run(['ffmpeg', '-y', '-loglevel', 'error', '-framerate', '11', '-i', str(tmp/'%03d.png'), '-vf',
+                        'tpad=stop_mode=clone:stop_duration=2', '-pix_fmt', 'yuv420p', '-c:v', 'libx264', str(target/'evidence.mp4')], check=True)
+        shutil.rmtree(tmp)
+
+
 if __name__ == '__main__':
     p = argparse.ArgumentParser()
     p.add_argument('--results', required=True)
@@ -185,3 +322,4 @@ if __name__ == '__main__':
     p.add_argument('--out', required=True)
     a = p.parse_args()
     render(a.results, a.commit, a.out)
+    animate(Path(a.out)/"results.json", a.out)
