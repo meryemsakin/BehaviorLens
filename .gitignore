@@ -9,3 +9,4 @@ data/
 outputs/
 *.egg-info/
 .DS_Store
+PROJECT_BRIEF.md

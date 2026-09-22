@@ -77,3 +77,7 @@ Raw data, household-level inputs, personas and API responses stay local. Publish
 v1 used one category (fluid milk), 200 households, a thin eight-feature persona and gpt-4.1-mini. It found the same direction: persona minus structured +0.021 [+0.010, +0.033]. See the [v1 report](reports/expansion_v1/report.html). Its limits motivated v2.
 
 This independent project is not affiliated with or endorsed by dunnhumby.
+
+## License
+
+Code: MIT. The dunnhumby dataset is not included and has its own terms.
