@@ -6,7 +6,7 @@ import hashlib
 import json
 import pickle
 from pathlib import Path
-from .batch import Ledger, submit, wait, results, env
+from .batch import Ledger, run_parts, wait, results, env
 from .prompts import requests_for, persona_request
 from .studies import select_categories, study_a, study_b, sample, attach_history
 
@@ -104,6 +104,7 @@ def main():
     p.add_argument('--out', default='outputs/v2')
     p.add_argument('--raw', default='data/raw')
     p.add_argument('--stage', help='stage folder for wait')
+    p.add_argument('--model', choices=[MAIN, ROBUST], help='submit only this model (main first, robustness if budget allows)')
     a = p.parse_args()
     out = Path(a.out)
     if a.command == 'prepare':
@@ -121,13 +122,15 @@ def main():
         return
     cap = float(env('BEHAVIORLENS_V2_CAP_USD'))
     ledger = Ledger(out/'ledger.jsonl', cap)
+    models = [a.model] if a.model else [MAIN, ROBUST]
     if a.command == 'stage1':
-        for model, rq in stage1(out).items():
-            print(submit(rq, out/f'stage1_{model}', ledger))
+        reqs = stage1(out)
+        for model in models:
+            print(run_parts(reqs[model], out/f'stage1_{model}', ledger))
     else:
-        dirs = {m: out/f'stage1_{m}' for m in (MAIN, ROBUST)}
-        for model, rq in stage2(out, dirs).items():
-            print(submit(rq, out/f'stage2_{model}', ledger))
+        reqs = stage2(out, {m: out/f'stage1_{m}' for m in models})
+        for model in models:
+            print(run_parts(reqs[model], out/f'stage2_{model}', ledger))
 
 
 if __name__ == '__main__':

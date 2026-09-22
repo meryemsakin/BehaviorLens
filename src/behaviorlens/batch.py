@@ -124,11 +124,40 @@ def wait(stage_dir, ledger, poll=60):
     return batch['status'], cost
 
 
+ENQUEUE_LIMIT = 1_500_000  # account tier allows 2M enqueued tokens per model; keep headroom
+
+
+def run_parts(requests, stage_dir, ledger):
+    """Split into sequential batches under the enqueued-token limit; each part must finish before the next starts."""
+    stage_dir = Path(stage_dir)
+    stage_dir.mkdir(parents=True, exist_ok=True)
+    parts, current, size = [], {}, 0
+    for k, b in requests.items():
+        n = tokens(b['instructions']) + tokens(b['input']) + b['max_output_tokens']
+        if current and size + n > ENQUEUE_LIMIT:
+            parts.append(current)
+            current, size = {}, 0
+        current[k] = b
+        size += n
+    parts.append(current)
+    for i, part in enumerate(parts):
+        folder = stage_dir/f'part_{i:02d}'
+        if (folder/'status.json').exists() and json.loads((folder/'status.json').read_text())['status'] == 'completed':
+            continue
+        print(submit(part, folder, ledger), flush=True)
+        status, cost = wait(folder, ledger)
+        print(f'part {i+1}/{len(parts)} {status} ${cost:.4f}', flush=True)
+        if status != 'completed':
+            raise RuntimeError(f'Part {i} ended {status}; stopping without retry')
+    return len(parts)
+
+
 def results(stage_dir, persona=False):
     """custom_id -> parsed value, or an error string. Parsing failures are kept, never dropped silently."""
     out = {}
-    for name in ('output.jsonl', 'errors.jsonl'):
-        path = Path(stage_dir)/name
+    stage_dir = Path(stage_dir)
+    files = sorted(stage_dir.glob('part_*/output.jsonl')) + sorted(stage_dir.glob('part_*/errors.jsonl'))
+    for path in files or [stage_dir/'output.jsonl', stage_dir/'errors.jsonl']:
         if not path.exists():
             continue
         for line in path.read_text().splitlines():
