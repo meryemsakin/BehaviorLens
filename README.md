@@ -13,7 +13,7 @@ Two held-out tests on dunnhumby *The Complete Journey* (one retailer):
 - **Study A:** will a household buy each of five categories in the next 28 days? 1,456 household-periods, 7,280 outcomes.
 - **Study B:** will a household redeem a coupon from a campaign it received? 2,512 household–campaign pairs across 9 campaigns.
 
-The protocol, prompts and analysis code were committed in [`4ac31dc`](docs/PREREGISTRATION_V2.md) before any model output existed.
+The protocol, prompts and analysis code were committed in [`68aa2b1`](docs/PREREGISTRATION_V2.md) before any model output existed.
 
 | Brier score ↓ (same test rows) | Study A · purchase | Study B · coupons |
 |---|---:|---:|
@@ -66,7 +66,7 @@ PYTHONPATH=src uv run python -m behaviorlens.v2 estimate --out outputs/v2
 PYTHONPATH=src uv run python -m behaviorlens.v2 stage1 --out outputs/v2
 PYTHONPATH=src uv run python -m behaviorlens.v2 stage2 --out outputs/v2
 PYTHONPATH=src uv run python -c "from behaviorlens.v2_analysis import analyze; analyze('outputs/v2','gpt-5.4-mini-2026-03-17','gpt-5.5-2026-04-23')"
-PYTHONPATH=src uv run python -m behaviorlens.v2_report --results outputs/v2/results_v2.json --commit 4ac31dc --out reports/v2
+PYTHONPATH=src uv run python -m behaviorlens.v2_report --results outputs/v2/results_v2.json --commit 68aa2b1 --out reports/v2
 PYTHONPATH=src python3 -m unittest discover -s tests
 ```
 
