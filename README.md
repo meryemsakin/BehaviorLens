@@ -4,7 +4,7 @@ Testing behavioral predictions against held-out retailer transaction records.
 
 ## First baseline experiment
 
-**Status: real-data baselines completed; LLM/persona experiments have not run.**
+**Status: real-data baselines completed; OpenAI engineering pilot completed. Full LLM/persona benchmark pending.**
 
 Task: purchase in `FLUID MILK PRODUCTS` within 28 dataset days. Category chosen using only records before day 365. Test: 6,939 observations from 2,398 recently active households.
 
@@ -17,6 +17,10 @@ Task: purchase in `FLUID MILK PRODUCTS` within 28 dataset days. Category chosen 
 Historical behavioral features improve prediction over a fixed training-prevalence forecast in this task. The two fitted models have similar point estimates; their difference has not been tested. **No conclusion about persona value is available yet.**
 
 This is one category at one retailer, not a test of general population representativeness. The source describes a representation of transactions; demographic codes are not decoded into age or income. Intervals resample households, not shared temporal shocks.
+
+## Live OpenAI pilot
+
+A five-household pilot completed 39 API calls over 13 prediction points using GPT-4.1 mini. Estimated token cost: **$0.00565**. This verifies the pipeline, not a research hypothesis. [Pilot report](reports/openai_pilot_v1/report.html) · [Protocol and cost guard](docs/OPENAI_PILOT.md).
 
 ## Reproduce
 
@@ -50,4 +54,4 @@ The fixture is handcrafted smoke-test data, not research evidence. The evaluatio
 - [Fixed experiment protocol](configs/complete_journey_v1.json)
 ***REMOVED***
 
-Next: execute matched LLM conditions; evaluate failures and uncertainty; prepare research note, video and presentation. This is an independent project.
+Next: expand matched LLM conditions beyond the engineering pilot; evaluate failures and uncertainty; prepare research note, video and presentation. This is an independent project.

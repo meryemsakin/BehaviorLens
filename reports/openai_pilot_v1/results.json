@@ -1,0 +1,750 @@
+{
+  "purpose": "Engineering pilot, not confirmatory research",
+  "summary": {
+    "status": "completed",
+    "planned_points": 13,
+    "completed_points": 13,
+    "calls": 39,
+    "usage_cost_usd": 0.005654800000000001,
+    "reserved_upper_estimate_usd": 0.07912560000000002,
+    "budget_usd": 0.5,
+    "note": "Usage-derived estimate at verified prices, not account billing balance. Failed/uncertain calls retain reservations."
+  },
+  "protocol": {
+    "model": "gpt-4.1-mini-2025-04-14",
+    "cap_usd": 0.5,
+    "max_output_tokens": 512,
+    "temperature": 0,
+    "price_per_million": {
+      "input": 0.4,
+      "output": 1.6
+    },
+    "pricing_source": "https://developers.openai.com/api/docs/models/gpt-4.1-mini",
+    "pricing_checked": "2026-09-22",
+    "purpose": "engineering pilot, not confirmatory evidence",
+    "requests_sha256": "0665e621e2c41ddaf98a83118cb4177728129556b55926d61f0a9c037915a3cd",
+    "code_sha256": "5b5225d89f1160c6e0863029e723f5ce4a687d317584a3c07b071fada0d07917",
+    "planned_points": 13,
+    "retries": 0
+  },
+  "metrics": {
+    "status": "engineering pilot only",
+    "results": {
+      "prevalence": {
+        "model": {
+          "n": 13,
+          "households": 5,
+          "brier": 0.2299489517721467,
+          "log_loss": 0.6528565514726371,
+          "ece": 0.13011994579178376,
+          "prevalence": 0.6923076923076923,
+          "mean_probability": 0.5621877465159085,
+          "calibration": [
+            {
+              "bin": 5,
+              "n": 13,
+              "predicted": 0.5621877465159085,
+              "observed": 0.6923076923076923
+            }
+          ]
+        },
+        "baseline": {
+          "n": 13,
+          "households": 5,
+          "brier": 0.2299489517721467,
+          "log_loss": 0.6528565514726371,
+          "ece": 0.13011994579178376,
+          "prevalence": 0.6923076923076923,
+          "mean_probability": 0.5621877465159085,
+          "calibration": [
+            {
+              "bin": 5,
+              "n": 13,
+              "predicted": 0.5621877465159085,
+              "observed": 0.6923076923076923
+            }
+          ]
+        },
+        "brier_difference": 0.0,
+        "uncertainty": {
+          "ci95": [
+            0.0,
+            0.0
+          ],
+          "seed": 42,
+          "repeats": 5000,
+          "unit": "household",
+          "method": "percentile"
+        },
+        "subgroups": {
+          "demographics_available": {
+            "metrics": {
+              "n": 3,
+              "households": 1,
+              "brier": 0.19167956930081834,
+              "log_loss": 0.575919416343269,
+              "ece": 0.4378122534840914,
+              "prevalence": 1.0,
+              "mean_probability": 0.5621877465159085,
+              "calibration": [
+                {
+                  "bin": 5,
+                  "n": 3,
+                  "predicted": 0.5621877465159085,
+                  "observed": 1.0
+                }
+              ]
+            },
+            "descriptive_only": true
+          },
+          "demographics_missing": {
+            "metrics": {
+              "n": 10,
+              "households": 4,
+              "brier": 0.2414297665135452,
+              "log_loss": 0.6759376920114477,
+              "ece": 0.03781225348409145,
+              "prevalence": 0.6,
+              "mean_probability": 0.5621877465159085,
+              "calibration": [
+                {
+                  "bin": 5,
+                  "n": 10,
+                  "predicted": 0.5621877465159085,
+                  "observed": 0.6
+                }
+              ]
+            },
+            "descriptive_only": true
+          }
+        },
+        "limitations": [
+          "Timestamp checks use supplied metadata; they do not prove feature provenance.",
+          "Intervals do not account for shared temporal shocks.",
+          "Subgroups are descriptive; no multiple-comparison or small-sample claims.",
+          "One binary outcome does not establish population representativeness."
+        ]
+      },
+      "logistic": {
+        "model": {
+          "n": 13,
+          "households": 5,
+          "brier": 0.044455824467608145,
+          "log_loss": 0.20689679004093575,
+          "ece": 0.1788329933255756,
+          "prevalence": 0.6923076923076923,
+          "mean_probability": 0.684440216707718,
+          "calibration": [
+            {
+              "bin": 1,
+              "n": 1,
+              "predicted": 0.160810690918453,
+              "observed": 0.0
+            },
+            {
+              "bin": 2,
+              "n": 2,
+              "predicted": 0.26412372616039287,
+              "observed": 0.0
+            },
+            {
+              "bin": 4,
+              "n": 1,
+              "predicted": 0.4222177219771702,
+              "observed": 0.0
+            },
+            {
+              "bin": 7,
+              "n": 2,
+              "predicted": 0.7405099026785056,
+              "observed": 1.0
+            },
+            {
+              "bin": 8,
+              "n": 4,
+              "predicted": 0.8509008824686377,
+              "observed": 1.0
+            },
+            {
+              "bin": 9,
+              "n": 3,
+              "predicted": 0.9672745389174547,
+              "observed": 1.0
+            }
+          ]
+        },
+        "baseline": {
+          "n": 13,
+          "households": 5,
+          "brier": 0.2299489517721467,
+          "log_loss": 0.6528565514726371,
+          "ece": 0.13011994579178376,
+          "prevalence": 0.6923076923076923,
+          "mean_probability": 0.5621877465159085,
+          "calibration": [
+            {
+              "bin": 5,
+              "n": 13,
+              "predicted": 0.5621877465159085,
+              "observed": 0.6923076923076923
+            }
+          ]
+        },
+        "brier_difference": -0.18549312730453854,
+        "uncertainty": {
+          "ci95": [
+            -0.2229085710545565,
+            -0.1561416365650833
+          ],
+          "seed": 42,
+          "repeats": 5000,
+          "unit": "household",
+          "method": "percentile"
+        },
+        "subgroups": {
+          "demographics_available": {
+            "metrics": {
+              "n": 3,
+              "households": 1,
+              "brier": 0.018125362664462016,
+              "log_loss": 0.14328104094115587,
+              "ece": 0.13327846757729456,
+              "prevalence": 1.0,
+              "mean_probability": 0.8667215324227054,
+              "calibration": [
+                {
+                  "bin": 8,
+                  "n": 3,
+                  "predicted": 0.8667215324227054,
+                  "observed": 1.0
+                }
+              ]
+            },
+            "descriptive_only": true
+          },
+          "demographics_missing": {
+            "metrics": {
+              "n": 10,
+              "households": 4,
+              "brier": 0.05235496300855199,
+              "log_loss": 0.2259815147708697,
+              "ece": 0.19249935105005994,
+              "prevalence": 0.6,
+              "mean_probability": 0.6297558219932219,
+              "calibration": [
+                {
+                  "bin": 1,
+                  "n": 1,
+                  "predicted": 0.160810690918453,
+                  "observed": 0.0
+                },
+                {
+                  "bin": 2,
+                  "n": 2,
+                  "predicted": 0.26412372616039287,
+                  "observed": 0.0
+                },
+                {
+                  "bin": 4,
+                  "n": 1,
+                  "predicted": 0.4222177219771702,
+                  "observed": 0.0
+                },
+                {
+                  "bin": 7,
+                  "n": 2,
+                  "predicted": 0.7405099026785056,
+                  "observed": 1.0
+                },
+                {
+                  "bin": 8,
+                  "n": 1,
+                  "predicted": 0.8034389326064342,
+                  "observed": 1.0
+                },
+                {
+                  "bin": 9,
+                  "n": 3,
+                  "predicted": 0.9672745389174547,
+                  "observed": 1.0
+                }
+              ]
+            },
+            "descriptive_only": true
+          }
+        },
+        "limitations": [
+          "Timestamp checks use supplied metadata; they do not prove feature provenance.",
+          "Intervals do not account for shared temporal shocks.",
+          "Subgroups are descriptive; no multiple-comparison or small-sample claims.",
+          "One binary outcome does not establish population representativeness."
+        ]
+      },
+      "gradient_boosting": {
+        "model": {
+          "n": 13,
+          "households": 5,
+          "brier": 0.034571485895909006,
+          "log_loss": 0.1743979267101213,
+          "ece": 0.152695312560177,
+          "prevalence": 0.6923076923076923,
+          "mean_probability": 0.6933906406618499,
+          "calibration": [
+            {
+              "bin": 0,
+              "n": 1,
+              "predicted": 0.07843525375498488,
+              "observed": 0.0
+            },
+            {
+              "bin": 2,
+              "n": 2,
+              "predicted": 0.25420602095792943,
+              "observed": 0.0
+            },
+            {
+              "bin": 4,
+              "n": 1,
+              "predicted": 0.41271140027233055,
+              "observed": 0.0
+            },
+            {
+              "bin": 7,
+              "n": 1,
+              "predicted": 0.7897603041833999,
+              "observed": 1.0
+            },
+            {
+              "bin": 8,
+              "n": 3,
+              "predicted": 0.838791279427839,
+              "observed": 1.0
+            },
+            {
+              "bin": 9,
+              "n": 5,
+              "predicted": 0.9416770980387913,
+              "observed": 1.0
+            }
+          ]
+        },
+        "baseline": {
+          "n": 13,
+          "households": 5,
+          "brier": 0.2299489517721467,
+          "log_loss": 0.6528565514726371,
+          "ece": 0.13011994579178376,
+          "prevalence": 0.6923076923076923,
+          "mean_probability": 0.5621877465159085,
+          "calibration": [
+            {
+              "bin": 5,
+              "n": 13,
+              "predicted": 0.5621877465159085,
+              "observed": 0.6923076923076923
+            }
+          ]
+        },
+        "brier_difference": -0.1953774658762377,
+        "uncertainty": {
+          "ci95": [
+            -0.23004487094298298,
+            -0.1728540335684899
+          ],
+          "seed": 42,
+          "repeats": 5000,
+          "unit": "household",
+          "method": "percentile"
+        },
+        "subgroups": {
+          "demographics_available": {
+            "metrics": {
+              "n": 3,
+              "households": 1,
+              "brier": 0.011330357028911164,
+              "log_loss": 0.11015425300810221,
+              "ece": 0.10401578040545063,
+              "prevalence": 1.0,
+              "mean_probability": 0.8959842195945494,
+              "calibration": [
+                {
+                  "bin": 8,
+                  "n": 1,
+                  "predicted": 0.8644711717151118,
+                  "observed": 1.0
+                },
+                {
+                  "bin": 9,
+                  "n": 2,
+                  "predicted": 0.9117407435342681,
+                  "observed": 1.0
+                }
+              ]
+            },
+            "descriptive_only": true
+          },
+          "demographics_missing": {
+            "metrics": {
+              "n": 10,
+              "households": 4,
+              "brier": 0.041543824556008364,
+              "log_loss": 0.19367102882072704,
+              "ece": 0.16729917220659488,
+              "prevalence": 0.6,
+              "mean_probability": 0.63261256698204,
+              "calibration": [
+                {
+                  "bin": 0,
+                  "n": 1,
+                  "predicted": 0.07843525375498488,
+                  "observed": 0.0
+                },
+                {
+                  "bin": 2,
+                  "n": 2,
+                  "predicted": 0.25420602095792943,
+                  "observed": 0.0
+                },
+                {
+                  "bin": 4,
+                  "n": 1,
+                  "predicted": 0.41271140027233055,
+                  "observed": 0.0
+                },
+                {
+                  "bin": 7,
+                  "n": 1,
+                  "predicted": 0.7897603041833999,
+                  "observed": 1.0
+                },
+                {
+                  "bin": 8,
+                  "n": 2,
+                  "predicted": 0.8259513332842026,
+                  "observed": 1.0
+                },
+                {
+                  "bin": 9,
+                  "n": 3,
+                  "predicted": 0.9616346677084735,
+                  "observed": 1.0
+                }
+              ]
+            },
+            "descriptive_only": true
+          }
+        },
+        "limitations": [
+          "Timestamp checks use supplied metadata; they do not prove feature provenance.",
+          "Intervals do not account for shared temporal shocks.",
+          "Subgroups are descriptive; no multiple-comparison or small-sample claims.",
+          "One binary outcome does not establish population representativeness."
+        ]
+      },
+      "structured": {
+        "model": {
+          "n": 13,
+          "households": 5,
+          "brier": 0.05923846153846154,
+          "log_loss": 0.26083732033698986,
+          "ece": 0.22384615384615386,
+          "prevalence": 0.6923076923076923,
+          "mean_probability": 0.6007692307692307,
+          "calibration": [
+            {
+              "bin": 0,
+              "n": 1,
+              "predicted": 0.01,
+              "observed": 0.0
+            },
+            {
+              "bin": 1,
+              "n": 1,
+              "predicted": 0.15,
+              "observed": 0.0
+            },
+            {
+              "bin": 3,
+              "n": 2,
+              "predicted": 0.35,
+              "observed": 0.0
+            },
+            {
+              "bin": 6,
+              "n": 1,
+              "predicted": 0.65,
+              "observed": 1.0
+            },
+            {
+              "bin": 7,
+              "n": 5,
+              "predicted": 0.75,
+              "observed": 1.0
+            },
+            {
+              "bin": 8,
+              "n": 3,
+              "predicted": 0.85,
+              "observed": 1.0
+            }
+          ]
+        },
+        "baseline": {
+          "n": 13,
+          "households": 5,
+          "brier": 0.2299489517721467,
+          "log_loss": 0.6528565514726371,
+          "ece": 0.13011994579178376,
+          "prevalence": 0.6923076923076923,
+          "mean_probability": 0.5621877465159085,
+          "calibration": [
+            {
+              "bin": 5,
+              "n": 13,
+              "predicted": 0.5621877465159085,
+              "observed": 0.6923076923076923
+            }
+          ]
+        },
+        "brier_difference": -0.17071049023368515,
+        "uncertainty": {
+          "ci95": [
+            -0.22734356423304894,
+            -0.12917956930081836
+          ],
+          "seed": 42,
+          "repeats": 5000,
+          "unit": "household",
+          "method": "percentile"
+        },
+        "subgroups": {
+          "demographics_available": {
+            "metrics": {
+              "n": 3,
+              "households": 1,
+              "brier": 0.0825,
+              "log_loss": 0.3353823536653387,
+              "ece": 0.2833333333333333,
+              "prevalence": 1.0,
+              "mean_probability": 0.7166666666666667,
+              "calibration": [
+                {
+                  "bin": 6,
+                  "n": 1,
+                  "predicted": 0.65,
+                  "observed": 1.0
+                },
+                {
+                  "bin": 7,
+                  "n": 2,
+                  "predicted": 0.75,
+                  "observed": 1.0
+                }
+              ]
+            },
+            "descriptive_only": true
+          },
+          "demographics_missing": {
+            "metrics": {
+              "n": 10,
+              "households": 4,
+              "brier": 0.052259999999999994,
+              "log_loss": 0.23847381033848522,
+              "ece": 0.20600000000000002,
+              "prevalence": 0.6,
+              "mean_probability": 0.5660000000000001,
+              "calibration": [
+                {
+                  "bin": 0,
+                  "n": 1,
+                  "predicted": 0.01,
+                  "observed": 0.0
+                },
+                {
+                  "bin": 1,
+                  "n": 1,
+                  "predicted": 0.15,
+                  "observed": 0.0
+                },
+                {
+                  "bin": 3,
+                  "n": 2,
+                  "predicted": 0.35,
+                  "observed": 0.0
+                },
+                {
+                  "bin": 7,
+                  "n": 3,
+                  "predicted": 0.75,
+                  "observed": 1.0
+                },
+                {
+                  "bin": 8,
+                  "n": 3,
+                  "predicted": 0.85,
+                  "observed": 1.0
+                }
+              ]
+            },
+            "descriptive_only": true
+          }
+        },
+        "limitations": [
+          "Timestamp checks use supplied metadata; they do not prove feature provenance.",
+          "Intervals do not account for shared temporal shocks.",
+          "Subgroups are descriptive; no multiple-comparison or small-sample claims.",
+          "One binary outcome does not establish population representativeness."
+        ]
+      },
+      "persona": {
+        "model": {
+          "n": 13,
+          "households": 5,
+          "brier": 0.03942307692307693,
+          "log_loss": 0.20455472089702528,
+          "ece": 0.18076923076923077,
+          "prevalence": 0.6923076923076923,
+          "mean_probability": 0.6038461538461538,
+          "calibration": [
+            {
+              "bin": 0,
+              "n": 2,
+              "predicted": 0.05,
+              "observed": 0.0
+            },
+            {
+              "bin": 1,
+              "n": 1,
+              "predicted": 0.15,
+              "observed": 0.0
+            },
+            {
+              "bin": 3,
+              "n": 1,
+              "predicted": 0.35,
+              "observed": 0.0
+            },
+            {
+              "bin": 7,
+              "n": 4,
+              "predicted": 0.75,
+              "observed": 1.0
+            },
+            {
+              "bin": 8,
+              "n": 5,
+              "predicted": 0.85,
+              "observed": 1.0
+            }
+          ]
+        },
+        "baseline": {
+          "n": 13,
+          "households": 5,
+          "brier": 0.2299489517721467,
+          "log_loss": 0.6528565514726371,
+          "ece": 0.13011994579178376,
+          "prevalence": 0.6923076923076923,
+          "mean_probability": 0.5621877465159085,
+          "calibration": [
+            {
+              "bin": 5,
+              "n": 13,
+              "predicted": 0.5621877465159085,
+              "observed": 0.6923076923076923
+            }
+          ]
+        },
+        "brier_difference": -0.19052587484906977,
+        "uncertainty": {
+          "ci95": [
+            -0.2487253824148671,
+            -0.14784623596748503
+          ],
+          "seed": 42,
+          "repeats": 5000,
+          "unit": "household",
+          "method": "percentile"
+        },
+        "subgroups": {
+          "demographics_available": {
+            "metrics": {
+              "n": 3,
+              "households": 1,
+              "brier": 0.035833333333333335,
+              "log_loss": 0.20423997714911027,
+              "ece": 0.18333333333333335,
+              "prevalence": 1.0,
+              "mean_probability": 0.8166666666666668,
+              "calibration": [
+                {
+                  "bin": 7,
+                  "n": 1,
+                  "predicted": 0.75,
+                  "observed": 1.0
+                },
+                {
+                  "bin": 8,
+                  "n": 2,
+                  "predicted": 0.85,
+                  "observed": 1.0
+                }
+              ]
+            },
+            "descriptive_only": true
+          },
+          "demographics_missing": {
+            "metrics": {
+              "n": 10,
+              "households": 4,
+              "brier": 0.0405,
+              "log_loss": 0.20464914402139978,
+              "ece": 0.18,
+              "prevalence": 0.6,
+              "mean_probability": 0.54,
+              "calibration": [
+                {
+                  "bin": 0,
+                  "n": 2,
+                  "predicted": 0.05,
+                  "observed": 0.0
+                },
+                {
+                  "bin": 1,
+                  "n": 1,
+                  "predicted": 0.15,
+                  "observed": 0.0
+                },
+                {
+                  "bin": 3,
+                  "n": 1,
+                  "predicted": 0.35,
+                  "observed": 0.0
+                },
+                {
+                  "bin": 7,
+                  "n": 3,
+                  "predicted": 0.75,
+                  "observed": 1.0
+                },
+                {
+                  "bin": 8,
+                  "n": 3,
+                  "predicted": 0.85,
+                  "observed": 1.0
+                }
+              ]
+            },
+            "descriptive_only": true
+          }
+        },
+        "limitations": [
+          "Timestamp checks use supplied metadata; they do not prove feature provenance.",
+          "Intervals do not account for shared temporal shocks.",
+          "Subgroups are descriptive; no multiple-comparison or small-sample claims.",
+          "One binary outcome does not establish population representativeness."
+        ]
+      }
+    }
+  }
+}
